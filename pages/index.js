@@ -9,6 +9,7 @@ export default function Landing() {
     <>
       <h1>landing page</h1>
       <Button onClick={context.walletConnect}> connect wallet</Button>
+      {context.isLogged && <h3>{context.wallet}</h3>}
     </>
   );
 }

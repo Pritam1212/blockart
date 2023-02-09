@@ -16,6 +16,7 @@
     "react-dom": "18.2.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
-    "web3": "^1.8.2"
+    "web3": "^1.7.4",
+    "web3-token": "^1.0.4"
   }
 }
