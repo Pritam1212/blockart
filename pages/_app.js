@@ -5,6 +5,7 @@ import { useState } from "react";
 import appContext from "@/context/appContext";
 import web3 from "@/ethereum/web3";
 import Web3Token from "web3-token";
+import { useRouter } from "next/router";
 
 const roboto = Roboto({
   weight: "400",
@@ -13,6 +14,8 @@ const roboto = Roboto({
 });
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+
   const [wallet, setWallet] = useState("");
   const [isLogged, setIsLogged] = useState(false);
   const [userId, setUserId] = useState("");
@@ -36,11 +39,28 @@ export default function App({ Component, pageProps }) {
     // console.log("address recovered", address, body);
     setIsLogged(true);
     setWallet(address);
+    await fetchUser(address);
   };
 
   const walletDisconnect = () => {
     setWallet("");
     setIsLogged(false);
+  };
+
+  const fetchUser = async (address) => {
+    const res = await fetch(`http://localhost:3000/api/wallet/${address}`, {
+      method: "GET",
+    });
+    const { success, data } = await res.json();
+
+    if (success) {
+      setUserId(data[0]._id);
+      // console.log(data[0]._id);
+      // console.log(userId);
+      router.replace("/home");
+    } else {
+      router.push("/new-user");
+    }
   };
 
   return (

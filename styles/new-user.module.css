@@ -1,0 +1,8 @@
+.formContainer {
+  width: 500px;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 10px;
+  /* box-shadow: -1px 14px 43px -18px rgba(0, 0, 0, 0.38); */
+  box-shadow: -1px 14px 43px -18px #935f2e;
+}

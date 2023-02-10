@@ -1,21 +1,21 @@
 import Layout from "@/components/Layout";
-// import appContext from "@/context/appContext";
-import styles from "../../styles/new-user.module.css";
+import appContext from "@/context/appContext";
+import styles from "../styles/new-user.module.css";
 
 const { useRouter } = require("next/router");
 const { useState, useEffect, useContext } = require("react");
 const { Loader, Form, Button } = require("semantic-ui-react");
 
-const editUser = ({ user }) => {
-  //   const context = useContext(appContext);
+const newUser = () => {
+  const context = useContext(appContext);
 
   const [form, setForm] = useState({
-    walletAddress: user.walletAddress,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    mobile: user.mobile,
-    address: user.address,
-    email: user.email,
+    walletAddress: context.wallet,
+    firstName: "",
+    lastName: "",
+    mobile: "",
+    address: "",
+    email: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
@@ -24,7 +24,7 @@ const editUser = ({ user }) => {
   useEffect(() => {
     if (isSubmitting) {
       if (Object.keys(errors).length === 0) {
-        editUser();
+        createUser();
         // alert("submiytteeeeeddddd");
       } else {
         setIsSubmitting(false);
@@ -32,10 +32,10 @@ const editUser = ({ user }) => {
     }
   }, [errors]);
 
-  const editUser = async () => {
+  const createUser = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/users/${user._id}`, {
-        method: "PUT",
+      const res = await fetch("http://localhost:3000/api/users", {
+        method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -80,6 +80,7 @@ const editUser = ({ user }) => {
 
     return err;
   };
+
   return (
     <>
       <Layout />
@@ -163,7 +164,7 @@ const editUser = ({ user }) => {
                 value={form.email}
               />
               <Button type="submit" inverted color="brown">
-                Edit!
+                Create!
               </Button>
             </Form>
           )}
@@ -173,13 +174,4 @@ const editUser = ({ user }) => {
   );
 };
 
-editUser.getInitialProps = async ({ query: { id } }) => {
-  const res = await fetch(`http://localhost:3000/api/users/${id}`, {
-    method: "GET",
-  });
-  const { data } = await res.json();
-
-  return { user: data };
-};
-
-export default editUser;
+export default newUser;
