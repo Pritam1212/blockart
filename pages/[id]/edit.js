@@ -84,7 +84,7 @@ const editUser = ({ user }) => {
     <>
       <Layout />
       <div className={styles.formContainer}>
-        <h1>User Registration</h1>
+        <h1>Edit Profile</h1>
         <hr />
         <br />
         <div>

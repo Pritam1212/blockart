@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "../styles/layout.module.css";
 import logo from "../public/img/logo-white.png";
-import { Button, Dropdown } from "semantic-ui-react";
+import { Button, Dropdown, Icon, Modal } from "semantic-ui-react";
 import { useContext } from "react";
 import appContext from "@/context/appContext";
 // import { Comfortaa } from "@next/font/google";
@@ -20,17 +20,19 @@ const myFont = localFont({ src: "../public/fonts/OstrichSans-Bold.otf" });
 const Layout = () => {
   const context = useContext(appContext);
   const router = useRouter();
+
   return (
     <div className={styles.navbar}>
-      <Image src={logo} alt="logo" width={62} height={62} priority />
+      <Image src={logo} alt="logo" width={62} height={62} />
       <Link
         href="/home"
         style={{
-          marginRight: "76%",
-          color: "#000000",
+          marginRight: "46%",
+          color: "#000",
         }}
       >
         <h1
+          priority="true"
           style={{
             fontSize: "41px",
           }}
@@ -39,6 +41,25 @@ const Layout = () => {
           <b>BlocKart</b>
         </h1>
       </Link>
+      <Button
+        onClick={() => router.push(`/${context.userId}/seller-products`)}
+        inverted
+      >
+        Your products
+      </Button>
+      <Button
+        onClick={() => router.push(`/${context.userId}/buyer-orders`)}
+        inverted
+      >
+        Your orders
+      </Button>
+      <Button onClick={() => router.push("add-product")} inverted>
+        Sell Product
+      </Button>
+      <Button inverted>
+        <Icon name="shopping cart" />
+        {context.isLogged ? "5" : "0"}
+      </Button>
       {context.isLogged ? (
         <Dropdown
           text={
