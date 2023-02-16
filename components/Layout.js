@@ -48,7 +48,7 @@ const Layout = () => {
         Your products
       </Button>
       <Button
-        onClick={() => router.push(`/${context.userId}/buyer-orders`)}
+        onClick={() => router.push(`/${context.wallet}/buyer-orders`)}
         inverted
       >
         Your orders
@@ -74,7 +74,7 @@ const Layout = () => {
           <Dropdown.Menu>
             <Dropdown.Item
               icon="settings"
-              text="View Profile"
+              text="Edit Profile"
               onClick={() => router.push(`/${context.userId}/edit`)}
             />
             <Dropdown.Item

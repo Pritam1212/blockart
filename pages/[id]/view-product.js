@@ -144,11 +144,11 @@ const viewProduct = ({ product }) => {
             </div>
           ) : (
             <div className={styles.approveButton}>
-              <Button inverted color="green">
+              <Button disabled inverted color="green">
                 <Icon name="cart arrow down" />
                 Sold!
               </Button>
-              <Button inverted color="red">
+              <Button disabled inverted color="red">
                 <Icon name="add to cart" />
                 Add to Cart!
               </Button>

@@ -1,18 +1,56 @@
 import appContext from "@/context/appContext";
 import web3 from "@/ethereum/web3";
 import { useRouter } from "next/router";
-import { useContext } from "react";
-import { Button, Divider, Grid, Image, Segment } from "semantic-ui-react";
+import { useContext, useState } from "react";
+import {
+  Button,
+  Divider,
+  Grid,
+  Image,
+  Popup,
+  Segment,
+} from "semantic-ui-react";
 import store from "../../../ethereum/store";
-import styles from "../../../styles/checkout.module.css";
+// import styles from "../../../styles/checkout.module.css";
 
 const { default: Layout } = require("@/components/Layout");
 
 const checkout = ({ props }) => {
+  const [loading, setLoading] = useState(false);
+  const context = useContext(appContext);
   let userData = props.data;
   let productData = props.product;
-  // console.log(userData, productData);
+  // console.log(productData.id);
   const router = useRouter();
+
+  const placingOrder = async () => {
+    setLoading(true);
+    try {
+      await store.methods.placeOrder(productData.id).send({
+        from: context.wallet,
+        value: productData[5],
+      });
+      if (context.cart.includes(productData.id)) {
+        const res = await fetch(`/api/users/${context.userId}`, {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            $pull: {
+              cart: `${productData.id}`,
+            },
+          }),
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+    router.push(`/${context.wallet}/buyer-orders`);
+  };
+
   return (
     <>
       <Layout />
@@ -72,9 +110,25 @@ const checkout = ({ props }) => {
             {productData[4]}
             <Divider />
             <div style={{ display: "flex" }}>
-              <Button icon="edit" color="green">
-                Place Order!
-              </Button>
+              {context.isLogged ? (
+                <Button
+                  loading={loading}
+                  onClick={placingOrder}
+                  icon="edit"
+                  color="green"
+                >
+                  Place Order!
+                </Button>
+              ) : (
+                <Popup
+                  content="You must log in!"
+                  trigger={
+                    <Button icon="edit" color="green">
+                      Place Order!
+                    </Button>
+                  }
+                />
+              )}
               <Button onClick={() => router.back()} icon="edit" color="red">
                 Cancel!
               </Button>
@@ -98,7 +152,6 @@ checkout.getInitialProps = async ({ query }) => {
     method: "GET",
   });
   const { success, data } = await res.json();
-  console.log(success, data);
   return { props: { product, data } };
 };
 

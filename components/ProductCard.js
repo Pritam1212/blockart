@@ -18,13 +18,11 @@ const ProductCard = ({ product }) => {
         ui={false}
       />
       <Card.Content>
-        <Card.Header>{product[0]}</Card.Header>
-        <Card.Meta>
-          {
-            /* <span className="date">Joined in 2015</span>
-             */
-            product[1]
-          }
+        <Card.Header style={{ textTransform: "capitalize" }}>
+          {product[0]}
+        </Card.Header>
+        <Card.Meta style={{ textTransform: "capitalize" }}>
+          {product[1]}
         </Card.Meta>
         <Card.Description style={{ overflowWrap: "break-word" }}>
           <b>Seller:</b> {product[4]}
@@ -34,7 +32,7 @@ const ProductCard = ({ product }) => {
         <b>{web3.utils.fromWei(product[5], "ether")}</b> ETH
         <Button
           onClick={() => router.push(`/${product["id"]}/view-product`)}
-          style={{ marginLeft: "35%" }}
+          style={{ marginLeft: "33%" }}
           secondary
         >
           Buy now!
