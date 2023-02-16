@@ -14,7 +14,6 @@ export default async (req, res) => {
     case "GET":
       try {
         const user = await User.find({ "walletAddress": id });
-
         if (user.length === 0) {
           return res.status(200).json({ success: false, data: user });
         }

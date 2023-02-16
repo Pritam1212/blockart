@@ -1,13 +1,16 @@
 import web3 from "@/ethereum/web3";
+import { useRouter } from "next/router";
 import { Button, Card, Icon, Image } from "semantic-ui-react";
 
 const ProductCard = ({ product }) => {
+  const router = useRouter();
+  // console.log(key);
   return (
     <Card
-      raised={true}
       style={{
         boxShadow: "0px 42px 78px -28px rgba(130, 98, 81, 0.69)",
         // cursor: "pointer",
+        margin: "0",
       }}
     >
       <Image
@@ -29,7 +32,11 @@ const ProductCard = ({ product }) => {
       </Card.Content>
       <Card.Content>
         <b>{web3.utils.fromWei(product[5], "ether")}</b> ETH
-        <Button style={{ marginLeft: "35%" }} secondary>
+        <Button
+          onClick={() => router.push(`/${product["id"]}/view-product`)}
+          style={{ marginLeft: "35%" }}
+          secondary
+        >
           Buy now!
         </Button>
       </Card.Content>

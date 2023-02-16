@@ -19,6 +19,7 @@ export default function App({ Component, pageProps }) {
   const [wallet, setWallet] = useState("");
   const [isLogged, setIsLogged] = useState(false);
   const [userId, setUserId] = useState("");
+  const [cart, setCart] = useState([]);
 
   const walletConnect = async () => {
     const your_address = (await web3.eth.getAccounts())[0];
@@ -52,14 +53,25 @@ export default function App({ Component, pageProps }) {
       method: "GET",
     });
     const { success, data } = await res.json();
-
+console.log(success, data);
     if (success) {
       setUserId(data[0]._id);
-      // console.log(data[0]._id);
-      // console.log(userId);
+      setCart([...data[0].cart]);
+      // console.log(cart);
       router.replace("/home");
     } else {
       router.push("/new-user");
+    }
+  };
+
+  const fetchCart = async () => {
+    const res = await fetch(`http://localhost:3000/api/wallet/${wallet}`, {
+      method: "GET",
+    });
+    const { success, data } = await res.json();
+
+    if (success) {
+      setCart([...data[0].cart]);
     }
   };
 
@@ -75,6 +87,9 @@ export default function App({ Component, pageProps }) {
           setUserId,
           walletConnect,
           walletDisconnect,
+          cart,
+          setCart,
+          fetchCart,
         }}
       >
         <Component {...pageProps} />

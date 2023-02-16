@@ -13,4 +13,7 @@ module.exports = {
     MNEMONIC:
       "praise purity still aware solution comfort crew initial senior broom slice bubble",
   },
+  images: {
+    domains: ["ipfs.io/"],
+  },
 };

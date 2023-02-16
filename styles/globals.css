@@ -6,6 +6,7 @@
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
   --primary: #826251;
   --secondary: #f3e9e5;
+  --box-shadow: 0px 42px 78px -28px rgba(130, 98, 81, 0.69);
 }
 
 * {

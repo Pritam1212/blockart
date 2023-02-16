@@ -58,12 +58,12 @@ const Layout = () => {
       </Button>
       <Button inverted>
         <Icon name="shopping cart" />
-        {context.isLogged ? "5" : "0"}
+        {context.isLogged ? `${context.cart.length}` : ""}
       </Button>
       {context.isLogged ? (
         <Dropdown
           text={
-            context.wallet.slice(0, 6) + "..." + context.wallet.slice(38, 42)
+            context.wallet.slice(0, 5) + "..." + context.wallet.slice(38, 42)
           }
           className="button"
           style={{
