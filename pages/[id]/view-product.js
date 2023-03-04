@@ -148,10 +148,17 @@ const viewProduct = ({ product }) => {
                 <Icon name="cart arrow down" />
                 Sold!
               </Button>
-              <Button disabled inverted color="red">
-                <Icon name="add to cart" />
-                Add to Cart!
-              </Button>
+              {context.cart.includes(product["id"]) ? (
+                <Button onClick={removeCart} inverted color="red">
+                  <Icon name="minus" />
+                  Remove from cart
+                </Button>
+              ) : (
+                <Button onClick={addToCart} inverted color="red">
+                  <Icon name="plus" />
+                  Add to Cart!
+                </Button>
+              )}
             </div>
           )}
         </div>

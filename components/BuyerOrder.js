@@ -2,10 +2,15 @@ const { Item, Image, Button } = require("semantic-ui-react");
 import web3 from "@/ethereum/web3";
 import { useRouter } from "next/router";
 import styles from "../styles/buyer-orders.module.css";
+import Escrow from "@/ethereum/escrow";
+import { useContext, useState } from "react";
+import appContext from "@/context/appContext";
 
 const BuyerOrder = ({ order, product }) => {
-  console.log(order, product);
+  // console.log(order, product);
+  const context = useContext(appContext);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   let status;
   let img =
     "https://ipfs.io/ipfs/QmX3abi8WCv3zAHXsCzhvCJ8RX5Zv8if3ZeFK3B5J3WLkb?filename=Zephyrus%20GX550_1920x1080.jpg";
@@ -26,6 +31,29 @@ const BuyerOrder = ({ order, product }) => {
     default:
       break;
   }
+
+  const acceptHandler = async () => {
+    setIsLoading(true);
+    const escrow = Escrow(order.escrow);
+
+    await escrow.methods.accept().send({
+      from: context.wallet,
+    });
+    setIsLoading(false);
+    router.replace(`/${context.wallet}/buyer-orders`);
+  };
+
+  const rejectHandler = async () => {
+    setIsLoading(true);
+    const escrow = Escrow(order.escrow);
+
+    await escrow.methods.reject().send({
+      from: context.wallet,
+    });
+    setIsLoading(false);
+    router.replace(`/${context.wallet}/buyer-orders`);
+  };
+
   return (
     <Item style={{ textTransform: "capitalize" }}>
       <Item.Image
@@ -41,17 +69,34 @@ const BuyerOrder = ({ order, product }) => {
         <Item.Extra>
           Price: <b>{web3.utils.fromWei(product[5], "ether")}</b>ETH
         </Item.Extra>
-        <Item.Extra>Status: {status}</Item.Extra>
+        <Item.Extra>
+          Status:{" "}
+          {status === "Available" ? (
+            <b style={{ color: "red" }}>Order was Cancelled!</b>
+          ) : (
+            status
+          )}
+        </Item.Extra>
         <Item.Description>
           Seller: <b>{order.seller}</b>
         </Item.Description>
       </Item.Content>
       {status === "Shipping" ? (
         <div className={styles.approveButton}>
-          <Button inverted color="green">
+          <Button
+            loading={isLoading}
+            onClick={acceptHandler}
+            inverted
+            color="green"
+          >
             Delivery Success
           </Button>
-          <Button inverted color="red">
+          <Button
+            loading={isLoading}
+            onClick={rejectHandler}
+            inverted
+            color="red"
+          >
             Cancel
           </Button>
         </div>

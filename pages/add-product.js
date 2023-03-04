@@ -165,7 +165,7 @@ const addProduct = () => {
               />
               <br />
               <Button type="submit" inverted color="brown">
-                Create!
+                Add!
               </Button>
             </Form>
           )}

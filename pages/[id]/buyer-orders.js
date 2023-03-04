@@ -1,6 +1,6 @@
 const { default: Layout } = require("@/components/Layout");
 import BuyerOrder from "@/components/BuyerOrder";
-import { Item } from "semantic-ui-react";
+import { Divider, Item } from "semantic-ui-react";
 import store from "../../ethereum/store";
 import styles from "../../styles/buyer-orders.module.css";
 
@@ -14,6 +14,9 @@ const buyerOrders = ({ props }) => {
       <Layout />
       <div className={styles.container}>
         <Item.Group>
+          <h2>Your Orders</h2>
+          <Divider />
+          <br />
           {orders.map((order) => {
             return (
               <>

@@ -1,0 +1,12 @@
+.container {
+  background-color: white;
+  margin: 50px 150px auto 150px;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  padding: 30px;
+}
+
+.approveButton {
+  /* position: relative; */
+  margin-top: 60px;
+}

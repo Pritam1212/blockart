@@ -42,21 +42,39 @@ const Layout = () => {
         </h1>
       </Link>
       <Button
+        style={{
+          boxShadow: "none !important",
+        }}
         onClick={() => router.push(`/${context.userId}/seller-products`)}
         inverted
       >
         Your products
       </Button>
       <Button
+        style={{
+          boxShadow: "none !important",
+        }}
         onClick={() => router.push(`/${context.wallet}/buyer-orders`)}
         inverted
       >
         Your orders
       </Button>
-      <Button onClick={() => router.push("add-product")} inverted>
+      <Button
+        style={{
+          boxShadow: "none !important",
+        }}
+        onClick={() => router.push("/add-product")}
+        inverted
+      >
         Sell Product
       </Button>
-      <Button inverted>
+      <Button
+        onClick={() => router.push("/cart")}
+        style={{
+          boxShadow: "none !important",
+        }}
+        inverted
+      >
         <Icon name="shopping cart" />
         {context.isLogged ? `${context.cart.length}` : ""}
       </Button>

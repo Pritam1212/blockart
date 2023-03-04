@@ -1,5 +1,5 @@
 import web3 from "@/ethereum/web3";
-import { Image, Item } from "semantic-ui-react";
+import { Divider, Image, Item } from "semantic-ui-react";
 import styles from "../../styles/seller-products.module.css";
 import store from "../../ethereum/store";
 import SellerProduct from "@/components/SellerProduct";
@@ -13,6 +13,9 @@ const sellerProducts = ({ products }) => {
       <Layout />
       <div className={styles.container}>
         <Item.Group>
+          <h2>Your Products</h2>
+          <Divider />
+          <br />
           {products.map((product) => {
             return (
               <>
@@ -53,7 +56,8 @@ sellerProducts.getInitialProps = async () => {
 
   let data = [];
   for (let index = 0; index < prod.length; index++) {
-    const product = await store.methods.getProduct(prod[index]).call();
+    let product = await store.methods.getProduct(prod[index]).call();
+    product = { ...product, id: prod[index] };
     data.push(product);
   }
 
