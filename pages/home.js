@@ -3,7 +3,7 @@ import styles from "../styles/home.module.css";
 import ProductCard from "@/components/ProductCard";
 import store from "../ethereum/store";
 const Home = ({ products }) => {
-  // console.log(typeof products[0]["id"]);
+  // console.log(products[3][2]);
   return (
     <>
       <Layout />

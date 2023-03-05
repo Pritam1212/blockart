@@ -12,8 +12,8 @@ const BuyerOrder = ({ order, product }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   let status;
-  let img =
-    "https://ipfs.io/ipfs/QmX3abi8WCv3zAHXsCzhvCJ8RX5Zv8if3ZeFK3B5J3WLkb?filename=Zephyrus%20GX550_1920x1080.jpg";
+  // let img =
+  //   "https://ipfs.io/ipfs/QmX3abi8WCv3zAHXsCzhvCJ8RX5Zv8if3ZeFK3B5J3WLkb?filename=Zephyrus%20GX550_1920x1080.jpg";
   switch (product[6]) {
     case "0":
       status = "Available";
@@ -60,7 +60,7 @@ const BuyerOrder = ({ order, product }) => {
         style={{ cursor: "pointer" }}
         onClick={() => router.push(`/${order.productId}/view-product`)}
         size="medium"
-        src={img}
+        src={product[2]}
       />
 
       <Item.Content>

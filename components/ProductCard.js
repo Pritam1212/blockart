@@ -13,10 +13,7 @@ const ProductCard = ({ product }) => {
         margin: "0",
       }}
     >
-      <Image
-        src="https://ipfs.io/ipfs/QmX3abi8WCv3zAHXsCzhvCJ8RX5Zv8if3ZeFK3B5J3WLkb?filename=Zephyrus%20GX550_1920x1080.jpg"
-        ui={false}
-      />
+      <Image src={product[2]} ui={false} />
       <Card.Content>
         <Card.Header style={{ textTransform: "capitalize" }}>
           {product[0]}

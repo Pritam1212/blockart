@@ -3,6 +3,7 @@ import appContext from "@/context/appContext";
 import web3 from "@/ethereum/web3";
 import styles from "../styles/new-user.module.css";
 import store from "../ethereum/store";
+const { create } = require("ipfs-http-client");
 
 const { useRouter } = require("next/router");
 const { useState, useEffect, useContext } = require("react");
@@ -10,6 +11,8 @@ const { Loader, Form, Button, Input, Label } = require("semantic-ui-react");
 
 const addProduct = () => {
   const context = useContext(appContext);
+
+  // const [image, setImage] = useState("");
 
   const [form, setForm] = useState({
     // walletAddress: context.wallet,
@@ -21,13 +24,13 @@ const addProduct = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
-  const [imageLink, setImageLink] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     if (isSubmitting) {
       if (Object.keys(errors).length === 0) {
         createProduct();
+        // console.log(form);
         // alert("submiytteeeeeddddd");
       } else {
         setIsSubmitting(false);
@@ -37,8 +40,8 @@ const addProduct = () => {
 
   const createProduct = async () => {
     try {
-      const cost = parseInt(web3.utils.toWei(form.price, "ether"));
-      const accounts = await web3.eth.getAccounts();
+      const cost = BigInt(web3.utils.toWei(form.price, "ether"));
+      // const accounts = await web3.eth.getAccounts();
       await store.methods
         .addProduct(
           form.name,
@@ -47,7 +50,7 @@ const addProduct = () => {
           form.description,
           cost
         )
-        .send({ from: accounts[0] });
+        .send({ from: context.wallet });
 
       router.push("/home");
     } catch (error) {
@@ -78,6 +81,9 @@ const addProduct = () => {
     if (!form.category) {
       err.category = "Category is required";
     }
+    if (!form.imageLink) {
+      err.imageLink = "Image is required";
+    }
     if (!form.description) {
       err.description = "Description is required";
     }
@@ -86,6 +92,31 @@ const addProduct = () => {
     }
 
     return err;
+  };
+
+  const imageHandler = async (e) => {
+    // e.preventDefault();
+    // console.log(e.target.files[0]);
+    const image = e.target.files[0];
+    const auth =
+      "Basic " +
+      Buffer.from(
+        process.env.INFURA_ID + ":" + process.env.INFURA_SECRET_KEY
+      ).toString("base64");
+    const ipfs = await create({
+      host: "ipfs.infura.io",
+      port: 5001,
+      protocol: "https",
+      headers: {
+        authorization: auth, // infura auth credentials
+      },
+    });
+    const result = await ipfs.add(image);
+    setForm({
+      ...form,
+      imageLink: `https://blockart.infura-ipfs.io/ipfs/${result.path}`,
+    });
+    // console.log(`https://ipfs.io/ipfs/${result.path}`);
   };
 
   return (
@@ -141,12 +172,41 @@ const addProduct = () => {
               />
               <Form.Input
                 fluid
+                error={
+                  errors.imageLink
+                    ? { content: "Please select a image!" }
+                    : null
+                }
                 label="Image Link"
                 placeholder="Image Link"
                 name="imageLink"
                 onChange={changeHandler}
                 value={form.imageLink}
+                disabled
               />
+              <Label
+                style={{ border: "none" }}
+                as="label"
+                basic
+                htmlFor="upload"
+              >
+                <Button
+                  icon="upload"
+                  label={{
+                    basic: true,
+                    content: "Select image",
+                  }}
+                  labelPosition="right"
+                />
+                <input
+                  onChange={imageHandler}
+                  hidden
+                  id="upload"
+                  type="file"
+                  accept="image/*"
+                />
+              </Label>
+              <br />
               <label>
                 <b>Price</b>
               </label>
@@ -161,7 +221,7 @@ const addProduct = () => {
                 onChange={changeHandler}
                 value={form.price}
                 labelPosition="right"
-                type="number"
+                // type="number"
               />
               <br />
               <Button type="submit" inverted color="brown">

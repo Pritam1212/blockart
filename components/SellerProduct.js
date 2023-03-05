@@ -16,8 +16,8 @@ const SellerProduct = ({ product }) => {
 
   // console.log(product);
   let status;
-  let img =
-    "https://ipfs.io/ipfs/QmX3abi8WCv3zAHXsCzhvCJ8RX5Zv8if3ZeFK3B5J3WLkb?filename=Zephyrus%20GX550_1920x1080.jpg";
+  // let img =
+  // "https://ipfs.io/ipfs/QmX3abi8WCv3zAHXsCzhvCJ8RX5Zv8if3ZeFK3B5J3WLkb?filename=Zephyrus%20GX550_1920x1080.jpg";
   switch (product[6]) {
     case "0":
       status = "Available";
@@ -134,7 +134,7 @@ const SellerProduct = ({ product }) => {
 
   return (
     <Item>
-      <Item.Image size="medium" src={img} />
+      <Item.Image size="medium" src={product[2]} />
 
       <Item.Content>
         <Item.Header as="a">{product[0]}</Item.Header>

@@ -12,6 +12,8 @@ module.exports = {
       "https://goerli.infura.io/v3/ca542ab2ca264900b6290b63fba035c2",
     MNEMONIC:
       "praise purity still aware solution comfort crew initial senior broom slice bubble",
+    INFURA_ID: "2MQ62YYhr1qieHfESv2toLPyKPo",
+    INFURA_SECRET_KEY: "e64429fe04bac6d767468f763af3ed3d",
   },
   images: {
     domains: ["ipfs.io/"],

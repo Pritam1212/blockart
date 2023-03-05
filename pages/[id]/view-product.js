@@ -83,7 +83,7 @@ const viewProduct = ({ product }) => {
             boxShadow: "12px 2px 57px -5px rgba(0,0,0,0.36)",
           }}
           size="large"
-          src="https://ipfs.io/ipfs/QmX3abi8WCv3zAHXsCzhvCJ8RX5Zv8if3ZeFK3B5J3WLkb?filename=Zephyrus%20GX550_1920x1080.jpg"
+          src={product[2]}
         />
         <div className={styles.info}>
           <h1>{product[0]}</h1>
