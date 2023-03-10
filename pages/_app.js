@@ -46,6 +46,7 @@ export default function App({ Component, pageProps }) {
   const walletDisconnect = () => {
     setWallet("");
     setIsLogged(false);
+    // window.location.reload(false);
   };
 
   const fetchUser = async (address) => {
@@ -53,12 +54,12 @@ export default function App({ Component, pageProps }) {
       method: "GET",
     });
     const { success, data } = await res.json();
-console.log(success, data);
+    console.log(success, data);
     if (success) {
       setUserId(data[0]._id);
       setCart([...data[0].cart]);
       // console.log(cart);
-      router.replace("/home");
+      router.replace(`${router.asPath}`);
     } else {
       router.push("/new-user");
     }

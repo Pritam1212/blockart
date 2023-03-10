@@ -3,8 +3,8 @@ const Web3 = require("web3");
 const compiledStore = require("./build/Store.json");
 
 const provider = new HDWalletProvider(
-  "praise purity still aware solution comfort crew initial senior broom slice bubble",
-  "https://goerli.infura.io/v3/ca542ab2ca264900b6290b63fba035c2"
+  process.env.MNEMONIC,
+  process.env.INFURA_PROVIDER
 );
 const web3 = new Web3(provider);
 

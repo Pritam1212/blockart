@@ -11,7 +11,7 @@ const Home = ({ products }) => {
         {products.map((product) => {
           // console.log(product["id"]);
 
-          return <ProductCard product={product} />;
+          return <ProductCard product={product} key={product["id"]} />;
         })}
       </div>
     </>

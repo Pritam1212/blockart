@@ -80,6 +80,9 @@ const BuyerOrder = ({ order, product }) => {
         <Item.Description>
           Seller: <b>{order.seller}</b>
         </Item.Description>
+        <Item.Description>
+          Escrow Contract: <b>{order.escrow}</b>
+        </Item.Description>
       </Item.Content>
       {status === "Shipping" ? (
         <div className={styles.approveButton}>

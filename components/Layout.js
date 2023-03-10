@@ -23,7 +23,9 @@ const Layout = () => {
 
   return (
     <div className={styles.navbar}>
-      <Image src={logo} alt="logo" width={62} height={62} />
+      <Link href="/home">
+        <Image src={logo} alt="logo" width={62} height={62} />
+      </Link>
       <Link
         href="/home"
         style={{

@@ -15,3 +15,7 @@
 /* .navbar > Link {
   margin-right: 70%;
 } */
+
+button.ui.inverted.button {
+  box-shadow: none !important;
+}

@@ -101,6 +101,29 @@ describe("Store", () => {
     );
     const res = await store.methods.getProduct(prod).call();
     console.log(res);
+
+    //searchhhhhhhhhhhhh.........
+    let search;
+    await store.getPastEvents(
+      "ProductCreated",
+      {
+        filter: { name: "appl" },
+        fromBlock: 0,
+        toBlock: "latest",
+      },
+      (error, events) => {
+        if (!error) {
+          const obj = JSON.parse(JSON.stringify(events));
+          const array = Object.keys(obj);
+          // console.log(obj[array[0]]);
+          search = obj[array[0]].returnValues;
+          // console.log("product created event", obj[array[0]].returnValues.id);
+        } else {
+          console.log(error);
+        }
+      }
+    );
+    console.log("search..", search);
     assert.ok(true);
   });
 });

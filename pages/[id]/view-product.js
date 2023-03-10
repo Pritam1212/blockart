@@ -12,8 +12,12 @@ const viewProduct = ({ product }) => {
   // const [cartAdded, setCartAdded] = useState(false);
   const context = useContext(appContext);
   const router = useRouter();
-
+  // console.log(router.pathname);
   const addToCart = async () => {
+    if (!context.isLogged) {
+      alert("Please Connect your Wallet!");
+      return;
+    }
     try {
       const res = await fetch(`/api/users/${context.userId}`, {
         method: "PUT",
@@ -121,8 +125,13 @@ const viewProduct = ({ product }) => {
           {status === "Available" ? (
             <div className={styles.approveButton}>
               <Button
-                onClick={() =>
-                  router.push(`/${product["id"]}/${context.userId}/checkout`)
+                onClick={
+                  context.isLogged
+                    ? () =>
+                        router.push(
+                          `/${product["id"]}/${context.userId}/checkout`
+                        )
+                    : () => alert("Please connect your wallet!")
                 }
                 inverted
                 color="green"

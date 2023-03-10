@@ -3,6 +3,7 @@ import appContext from "@/context/appContext";
 import web3 from "@/ethereum/web3";
 import styles from "../styles/new-user.module.css";
 import store from "../ethereum/store";
+import Link from "next/link";
 const { create } = require("ipfs-http-client");
 
 const { useRouter } = require("next/router");
@@ -118,119 +119,130 @@ const addProduct = () => {
     });
     // console.log(`https://ipfs.io/ipfs/${result.path}`);
   };
-
   return (
     <>
       <Layout />
-      <div className={styles.formContainer}>
-        <h1>Add Product</h1>
-        <hr />
-        <br />
-        <div>
-          {isSubmitting ? (
-            <Loader active inline="centered" />
-          ) : (
-            <Form onSubmit={submitHandler}>
-              <Form.Input
-                fluid
-                error={
-                  errors.name
-                    ? { content: "Please enter the product name!" }
-                    : null
-                }
-                label="Product Name"
-                placeholder="Product Name"
-                name="name"
-                onChange={changeHandler}
-                value={form.name}
-              />
-              <Form.Input
-                fluid
-                error={
-                  errors.category
-                    ? { content: "Please enter the category!" }
-                    : null
-                }
-                label="Category"
-                placeholder="Category"
-                name="category"
-                onChange={changeHandler}
-                value={form.category}
-              />
-              <Form.TextArea
-                // fluid
-                error={
-                  errors.description
-                    ? { content: "Please enter the description!" }
-                    : null
-                }
-                label="Description"
-                placeholder="Description"
-                name="description"
-                onChange={changeHandler}
-                value={form.description}
-              />
-              <Form.Input
-                fluid
-                error={
-                  errors.imageLink
-                    ? { content: "Please select a image!" }
-                    : null
-                }
-                label="Image Link"
-                placeholder="Image Link"
-                name="imageLink"
-                onChange={changeHandler}
-                value={form.imageLink}
-                disabled
-              />
-              <Label
-                style={{ border: "none" }}
-                as="label"
-                basic
-                htmlFor="upload"
-              >
-                <Button
-                  icon="upload"
-                  label={{
-                    basic: true,
-                    content: "Select image",
-                  }}
+      {context.isLogged ? (
+        <div className={styles.formContainer}>
+          <h1>Add Product</h1>
+          <hr />
+          <br />
+          <div>
+            {isSubmitting ? (
+              <Loader active inline="centered" />
+            ) : (
+              <Form onSubmit={submitHandler}>
+                <Form.Input
+                  fluid
+                  error={
+                    errors.name
+                      ? { content: "Please enter the product name!" }
+                      : null
+                  }
+                  label="Product Name"
+                  placeholder="Product Name"
+                  name="name"
+                  onChange={changeHandler}
+                  value={form.name}
+                />
+                <Form.Input
+                  fluid
+                  error={
+                    errors.category
+                      ? { content: "Please enter the category!" }
+                      : null
+                  }
+                  label="Category"
+                  placeholder="Category"
+                  name="category"
+                  onChange={changeHandler}
+                  value={form.category}
+                />
+                <Form.TextArea
+                  // fluid
+                  error={
+                    errors.description
+                      ? { content: "Please enter the description!" }
+                      : null
+                  }
+                  label="Description"
+                  placeholder="Description"
+                  name="description"
+                  onChange={changeHandler}
+                  value={form.description}
+                />
+                <Form.Input
+                  fluid
+                  error={
+                    errors.imageLink
+                      ? { content: "Please select a image!" }
+                      : null
+                  }
+                  label="Image Link"
+                  placeholder="Image Link"
+                  name="imageLink"
+                  onChange={changeHandler}
+                  value={form.imageLink}
+                  readOnly
+                />
+                <Label
+                  style={{ border: "none" }}
+                  as="label"
+                  basic
+                  htmlFor="upload"
+                >
+                  <Button
+                    icon="upload"
+                    label={{
+                      basic: true,
+                      content: "Select image",
+                    }}
+                    labelPosition="right"
+                  />
+                  <input
+                    onChange={imageHandler}
+                    hidden
+                    id="upload"
+                    type="file"
+                    accept="image/*"
+                  />
+                </Label>
+                <br />
+                <label>
+                  <b>Price</b>
+                </label>
+                <Input
+                  fluid
+                  error={
+                    errors.price ? { content: "Please enter the price!" } : null
+                  }
+                  label="ETH"
+                  placeholder="Price"
+                  name="price"
+                  onChange={changeHandler}
+                  value={form.price}
                   labelPosition="right"
+                  // type="number"
                 />
-                <input
-                  onChange={imageHandler}
-                  hidden
-                  id="upload"
-                  type="file"
-                  accept="image/*"
-                />
-              </Label>
-              <br />
-              <label>
-                <b>Price</b>
-              </label>
-              <Input
-                fluid
-                error={
-                  errors.price ? { content: "Please enter the price!" } : null
-                }
-                label="ETH"
-                placeholder="Price"
-                name="price"
-                onChange={changeHandler}
-                value={form.price}
-                labelPosition="right"
-                // type="number"
-              />
-              <br />
-              <Button type="submit" inverted color="brown">
-                Add!
-              </Button>
-            </Form>
-          )}
+                <br />
+                <Button type="submit" inverted color="brown">
+                  Add!
+                </Button>
+              </Form>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className={styles.formContainer}>
+          <h1>Add Product</h1>
+          <hr />
+          <br />
+          <h3>Please Connect your Wallet!</h3>
+          <h4>
+            Go back to <Link href="/home">home</Link>
+          </h4>
+        </div>
+      )}{" "}
     </>
   );
 };

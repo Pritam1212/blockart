@@ -122,7 +122,11 @@ const SellerProduct = ({ product }) => {
           const obj = JSON.parse(JSON.stringify(events));
           const array = Object.keys(obj);
 
-          setBuyerAddress(obj[array[0]].returnValues.buyer);
+          if (obj[array[0]] === undefined || obj[array[0]] === null) {
+            return;
+          } else {
+            setBuyerAddress(obj[array[0]].returnValues.buyer);
+          }
         } else {
           console.log(error);
         }

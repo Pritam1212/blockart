@@ -10,3 +10,13 @@
   /* position: relative; */
   margin-top: 60px;
 }
+
+.formContainer {
+  width: 500px;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 10px;
+  /* box-shadow: -1px 14px 43px -18px rgba(0, 0, 0, 0.38); */
+  box-shadow: var(--box-shadow);
+  background-color: white;
+}
