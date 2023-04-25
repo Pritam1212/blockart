@@ -93,11 +93,7 @@ const checkout = ({ props }) => {
           <Grid.Column verticalAlign="middle" textAlign="center">
             <h2>Product Information</h2>
             <Divider />
-            <Image
-              centered
-              size="small"
-              src="https://ipfs.io/ipfs/QmX3abi8WCv3zAHXsCzhvCJ8RX5Zv8if3ZeFK3B5J3WLkb?filename=Zephyrus%20GX550_1920x1080.jpg"
-            />
+            <Image centered size="small" src={productData[2]} />
             <h4>Product:</h4>
             {productData[0]}
             <h4>Category:</h4>

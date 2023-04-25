@@ -3,7 +3,7 @@ import Store from "./build/Store.json";
 
 const instance = new web3.eth.Contract(
   JSON.parse(Store.interface),
-  "0x5E848c6aB7f0F29AfC8b9003b8B6C73f3fDa1015"
+  "0x0f5C3D58BB1d738ce932f6565982542B9ce703EB"
 );
 
 export default instance;

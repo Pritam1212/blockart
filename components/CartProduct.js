@@ -1,4 +1,4 @@
-import { Button, Item } from "semantic-ui-react";
+import { Button, Image, Item } from "semantic-ui-react";
 import styles from "../styles/cart.module.css";
 import store from "../ethereum/store";
 import { useEffect, useState } from "react";
@@ -44,10 +44,20 @@ const cartProduct = ({ id }) => {
 
   return (
     <Item style={{ textTransform: "capitalize" }}>
-      <Item.Image
+      {/* <Item.Image
         style={{ cursor: "pointer" }}
         //   onClick={() => router.push(`/${order.productId}/view-product`)}
         size="medium"
+        src={product[2]}
+      /> */}
+      <Image
+        style={{
+          height: "200px",
+          width: "200px",
+          objectFit: "cover",
+          cursor: "pointer",
+        }}
+        centered
         src={product[2]}
       />
 

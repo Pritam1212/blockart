@@ -6,6 +6,8 @@ import appContext from "@/context/appContext";
 import web3 from "@/ethereum/web3";
 import Web3Token from "web3-token";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import icon from "../public/img/logo-white.png";
 
 const roboto = Roboto({
   weight: "400",
@@ -46,6 +48,7 @@ export default function App({ Component, pageProps }) {
   const walletDisconnect = () => {
     setWallet("");
     setIsLogged(false);
+    router.replace("/home");
     // window.location.reload(false);
   };
 
@@ -76,8 +79,14 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  // console.log(icon);
+
   return (
     <main className={roboto.className}>
+      <Head>
+        <title>BlocKart</title>
+        <link rel="shortcut icon" href={icon.src} type="image/x-icon"></link>
+      </Head>
       <appContext.Provider
         value={{
           wallet,

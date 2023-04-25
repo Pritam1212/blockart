@@ -77,6 +77,17 @@ const viewProduct = ({ product }) => {
     default:
       break;
   }
+
+  const buyHandler = () => {
+    if (!context.isLogged) {
+      alert("Please Connect your Wallet!");
+    } else if (product[4].toLowerCase() === context.wallet) {
+      alert("Trying to buy your own product!?");
+    } else {
+      console.log(product[4], context.wallet);
+      router.push(`/${product["id"]}/${context.userId}/checkout`);
+    }
+  };
   return (
     <>
       <Layout />
@@ -124,18 +135,7 @@ const viewProduct = ({ product }) => {
           </h3>
           {status === "Available" ? (
             <div className={styles.approveButton}>
-              <Button
-                onClick={
-                  context.isLogged
-                    ? () =>
-                        router.push(
-                          `/${product["id"]}/${context.userId}/checkout`
-                        )
-                    : () => alert("Please connect your wallet!")
-                }
-                inverted
-                color="green"
-              >
+              <Button onClick={buyHandler} inverted color="green">
                 <Icon name="cart arrow down" />
                 Buy Now!
               </Button>

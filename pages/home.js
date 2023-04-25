@@ -2,8 +2,9 @@ import Layout from "@/components/Layout";
 import styles from "../styles/home.module.css";
 import ProductCard from "@/components/ProductCard";
 import store from "../ethereum/store";
+
 const Home = ({ products }) => {
-  // console.log(products[3][2]);
+  // console.log(products);
   return (
     <>
       <Layout />
@@ -27,6 +28,7 @@ Home.getInitialProps = async () => {
     product = { ...product, id };
     arr.push(product);
   }
+  // console.log(arr);
 
   return { products: arr };
 };

@@ -1,6 +1,6 @@
 import web3 from "@/ethereum/web3";
 import styles from "../styles/seller-products.module.css";
-import { Button, Icon, Item } from "semantic-ui-react";
+import { Button, Icon, Image, Item } from "semantic-ui-react";
 import { useContext, useState } from "react";
 import appContext from "@/context/appContext";
 import store from "../ethereum/store";
@@ -124,6 +124,8 @@ const SellerProduct = ({ product }) => {
 
           if (obj[array[0]] === undefined || obj[array[0]] === null) {
             return;
+          } else if (product[6] === "0") {
+            setBuyerAddress("");
           } else {
             setBuyerAddress(obj[array[0]].returnValues.buyer);
           }
@@ -138,7 +140,12 @@ const SellerProduct = ({ product }) => {
 
   return (
     <Item>
-      <Item.Image size="medium" src={product[2]} />
+      {/* <Item.Image size="medium" src={product[2]} /> */}
+      <Image
+        style={{ height: "200px", width: "200px", objectFit: "cover" }}
+        centered
+        src={product[2]}
+      />
 
       <Item.Content>
         <Item.Header as="a">{product[0]}</Item.Header>

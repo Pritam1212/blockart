@@ -98,7 +98,7 @@ const editUser = ({ user }) => {
                 name="walletAddress"
                 onChange={changeHandler}
                 value={form.walletAddress}
-                disabled
+                readOnly
               />
               <Form.Group widths="equal">
                 <Form.Input

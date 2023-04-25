@@ -56,11 +56,22 @@ const BuyerOrder = ({ order, product }) => {
 
   return (
     <Item style={{ textTransform: "capitalize" }}>
-      <Item.Image
+      {/* <Item.Image
         style={{ cursor: "pointer" }}
         onClick={() => router.push(`/${order.productId}/view-product`)}
         size="medium"
         src={product[2]}
+      /> */}
+      <Image
+        style={{
+          height: "200px",
+          width: "200px",
+          objectFit: "cover",
+          cursor: "pointer",
+        }}
+        centered
+        src={product[2]}
+        onClick={() => router.push(`/${order.productId}/view-product`)}
       />
 
       <Item.Content>

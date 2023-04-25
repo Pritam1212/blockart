@@ -2,7 +2,7 @@ import web3 from "@/ethereum/web3";
 import { useRouter } from "next/router";
 import { Button, Card, Icon, Image } from "semantic-ui-react";
 
-const ProductCard = ({ product }) => {
+const SearchCard = ({ product }) => {
   const router = useRouter();
   // console.log(key);
   return (
@@ -21,22 +21,22 @@ const ProductCard = ({ product }) => {
           cursor: "pointer",
         }}
         centered
-        src={product[2]}
+        src={product["imageLink"]}
         onClick={() => router.push(`/${product["id"]}/view-product`)}
       />
       <Card.Content>
         <Card.Header style={{ textTransform: "capitalize" }}>
-          {product[0]}
+          {product["name"]}
         </Card.Header>
         <Card.Meta style={{ textTransform: "capitalize" }}>
-          {product[1]}
+          {product["category"]}
         </Card.Meta>
         <Card.Description style={{ overflowWrap: "break-word" }}>
-          <b>Seller:</b> {product[4]}
+          <b>Seller:</b> {product["seller"]}
         </Card.Description>
       </Card.Content>
       <Card.Content>
-        <b>{web3.utils.fromWei(product[5], "ether")}</b> ETH
+        <b>{web3.utils.fromWei(product["price"], "ether")}</b> ETH
         <Button
           onClick={() => router.push(`/${product["id"]}/view-product`)}
           // style={{ marginLeft: "38%" }}
@@ -50,4 +50,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default SearchCard;

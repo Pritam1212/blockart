@@ -16,6 +16,14 @@
   margin-right: 70%;
 } */
 
-button.ui.inverted.button {
-  box-shadow: none !important;
+.nav {
+  color: white;
+  font-weight: bold;
+}
+
+.nav:hover {
+  cursor: pointer;
+  /* background-color: white; */
+  color: black;
+  border-radius: 5px;
 }

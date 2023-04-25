@@ -1,8 +1,8 @@
 import Image from "next/image";
 import styles from "../styles/layout.module.css";
 import logo from "../public/img/logo-white.png";
-import { Button, Dropdown, Icon, Modal } from "semantic-ui-react";
-import { useContext } from "react";
+import { Button, Dropdown, Icon, Input, Modal } from "semantic-ui-react";
+import { useContext, useState } from "react";
 import appContext from "@/context/appContext";
 // import { Comfortaa } from "@next/font/google";
 import Link from "next/link";
@@ -20,16 +20,36 @@ const myFont = localFont({ src: "../public/fonts/OstrichSans-Bold.otf" });
 const Layout = () => {
   const context = useContext(appContext);
   const router = useRouter();
+  const [searchVal, setSerachVal] = useState("");
+
+  const changeHandler = (e) => {
+    setSerachVal(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      // console.log(searchVal);
+      router.push(`/search?q=${searchVal}`);
+    }
+  };
 
   return (
     <div className={styles.navbar}>
       <Link href="/home">
-        <Image src={logo} alt="logo" width={62} height={62} />
+        <Image
+          style={{
+            marginLeft: "40%",
+          }}
+          src={logo}
+          alt="logo"
+          width={62}
+          height={62}
+        />
       </Link>
       <Link
         href="/home"
         style={{
-          marginRight: "46%",
+          marginRight: "10%",
           color: "#000",
         }}
       >
@@ -43,43 +63,41 @@ const Layout = () => {
           <b>BlocKart</b>
         </h1>
       </Link>
-      <Button
-        style={{
-          boxShadow: "none !important",
+      <Input
+        style={{ width: "450px", marginRight: "8%" }}
+        icon={{
+          name: "search",
+          circular: true,
+          link: true,
+          onClick: () => {
+            router.push(`/search?q=${searchVal}`);
+          },
         }}
+        placeholder="Search..."
+        // fluid
+        value={searchVal}
+        onChange={changeHandler}
+        onKeyPress={handleKeyPress}
+      />
+      <a
+        className={styles.nav}
         onClick={() => router.push(`/${context.userId}/seller-products`)}
-        inverted
       >
         Your products
-      </Button>
-      <Button
-        style={{
-          boxShadow: "none !important",
-        }}
+      </a>
+      <a
+        className={styles.nav}
         onClick={() => router.push(`/${context.wallet}/buyer-orders`)}
-        inverted
       >
         Your orders
-      </Button>
-      <Button
-        style={{
-          boxShadow: "none !important",
-        }}
-        onClick={() => router.push("/add-product")}
-        inverted
-      >
+      </a>
+      <a className={styles.nav} onClick={() => router.push("/add-product")}>
         Sell Product
-      </Button>
-      <Button
-        onClick={() => router.push("/cart")}
-        style={{
-          boxShadow: "none !important",
-        }}
-        inverted
-      >
+      </a>
+      <a className={styles.nav} onClick={() => router.push("/cart")}>
         <Icon name="shopping cart" />
         {context.isLogged ? `${context.cart.length}` : ""}
-      </Button>
+      </a>
       {context.isLogged ? (
         <Dropdown
           text={

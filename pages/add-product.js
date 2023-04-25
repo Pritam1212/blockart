@@ -234,9 +234,9 @@ const addProduct = () => {
         </div>
       ) : (
         <div className={styles.formContainer}>
-          <h1>Add Product</h1>
+          {/* <h1>Add Product</h1>
           <hr />
-          <br />
+          <br /> */}
           <h3>Please Connect your Wallet!</h3>
           <h4>
             Go back to <Link href="/home">home</Link>
